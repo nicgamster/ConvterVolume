@@ -20,14 +20,15 @@ public class UdpUnicastServer implements Runnable{
         server = new DatagramSocket(clientPort);
     }
 
+    //Метод с закрытием сервера
     public void interrupt() {
         server.close();
     }
 
 
+    //Постоянный метод на получение пакета от клиента. После получения и обработки отправляет пакет обратно
     @Override
     public void run() {
-//        try(server = new DatagramSocket(clientPort)) {
         while (true) {
             datagramPacket = new DatagramPacket(buffer, 0, buffer.length);
             try {
@@ -60,6 +61,8 @@ public class UdpUnicastServer implements Runnable{
 
 
     }
+
+    //Отправляет обработонное сообщение обратно клиенту
     public void sendBack(String message, DatagramPacket datagramPacket)
     {
         try {

@@ -98,14 +98,18 @@ public class ClientApp{
                 message = String.valueOf(num);
                 message = makeMessage(message, method);
 
+                System.out.println(message);
+
+                //Отправляем сообщение серверу
                 client.sendMessage(message);
 
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(200);
                 } catch (InterruptedException ex) {
                     throw new RuntimeException(ex);
                 }
 
+                //Окошко с ответом
                 JOptionPane.showMessageDialog(mainPanel, client.messageToShow);
 
             }
@@ -122,6 +126,7 @@ public class ClientApp{
         }
         client = new UdpUnicastClient(port);
 
+        //Создаем 2 потока
         executorService = Executors.newFixedThreadPool(2);
         executorService.submit(client);
         executorService.submit(server);
@@ -160,7 +165,7 @@ public class ClientApp{
 
         frame.setContentPane(new ClientApp().mainPanel);
 
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
 
     }

@@ -25,10 +25,12 @@ public class UdpUnicastClient implements Runnable{
         }
     }
 
+    //Закрытие клиента
     public void interrupt() {
         clientSocket.close();
     }
 
+    //Отправка сообщения
     public void sendMessage(String message)
     {
         buffer = new byte[message.length()];
@@ -53,6 +55,8 @@ public class UdpUnicastClient implements Runnable{
             }
     }
 
+    //Постоянный метод на получение пакета от сервера. После получения записывает в переменную message to show
+    //ответ от сервера
     @Override
     public void run() {
         while (true)
